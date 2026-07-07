@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b1524;--wp:#2271b1;--wp-bright:#54a6e6;--accent:#00a0d2;--ink:#e9f1fa;--muted:#7f97b2}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%}
+  body{background:
+      radial-gradient(70% 90% at 50% 0%, rgba(34,113,177,.35), rgba(34,113,177,0) 60%),
+      linear-gradient(180deg,#0d1a2c,#091121);
+    font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;
+    -webkit-font-smoothing:antialiased}
+  .win{width:78%;background:#0a0f18;border:1px solid #1e2c40;border-radius:14px;overflow:hidden;
+    box-shadow:0 40px 120px rgba(0,0,0,.6), 0 0 60px rgba(34,113,177,.1)}
+  .bar{display:flex;align-items:center;gap:8px;padding:14px 18px;background:#0d1420;border-bottom:1px solid #1e2c40}
+  .bar i{width:12px;height:12px;border-radius:50%}
+  .r{background:#ff5f57}.y{background:#febc2e}.g{background:#28c840}
+  .bar span{margin-left:12px;color:var(--muted);font:500 14px 'JetBrains Mono',monospace}
+  .body{padding:30px 32px 34px;font:500 19px/1.85 'JetBrains Mono',monospace;color:var(--ink)}
+  .u{color:#cde0f2}
+  .u .p{color:var(--wp-bright);font-weight:700}
+  .a{color:#b7c8db;margin-top:14px}
+  .a .dot{color:var(--wp-bright)}
+  .spin{margin-top:26px;font-size:22px;display:flex;align-items:center;gap:.6em}
+  .spin .g2{color:var(--accent)}
+  .spin .verb{color:#fff;font-weight:700}
+  .spin .hint{color:var(--muted);font-weight:400;font-size:16px}
+  .cur{display:inline-block;width:11px;height:22px;background:var(--wp-bright);margin-left:2px;vertical-align:-3px}
+</style>
+</head>
+<body>
+  <div class="win">
+    <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i>
+      <span>claude · ~/wp-content/plugins/book-library</span></div>
+    <div class="body">
+      <div class="u"><span class="p">&gt;</span> add a “Book” custom post type with a genre taxonomy</div>
+      <div class="a"><span class="dot">●</span> I'll register the post type and taxonomy, then flush the rewrite rules so the new permalinks work.</div>
+      <div class="spin"><span class="g2">◍</span> <span class="verb">Registering the Post Type…</span> <span class="hint">(esc to interrupt)</span><span class="cur"></span></div>
+    </div>
+  </div>
+</body>
+</html>

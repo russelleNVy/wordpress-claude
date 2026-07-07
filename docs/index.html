@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WordPress-Claude: Claude Code's spinner, in WordPress core (for WordPress developers)</title>
+<meta name="description" content="A spinner verb pack for WordPress developers using Claude Code. Turns Claude's thinking spinner into real WordPress core functions, WP-CLI commands, and hooks. Plus tips for using Claude Code / AI with WordPress.">
+<meta name="theme-color" content="#0b1524">
+<link rel="icon" href="assets/icon-256x256.png">
+
+<link rel="canonical" href="https://russellenvy.github.io/wordpress-claude/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WordPress-Claude">
+<meta property="og:title" content="WordPress-Claude: Claude Code's spinner, in WordPress core">
+<meta property="og:description" content="A spinner verb pack for WordPress developers using Claude Code. Real WP core functions, WP-CLI commands, and hooks as gerunds. Stay caffeinated, ship plugins.">
+<meta property="og:url" content="https://russellenvy.github.io/wordpress-claude/">
+<meta property="og:image" content="https://russellenvy.github.io/wordpress-claude/assets/og.png">
+<meta property="og:image:secure_url" content="https://russellenvy.github.io/wordpress-claude/assets/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="WordPress-Claude, with Cyborg Wapuu, the retro-tech mascot">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="WordPress-Claude: Claude Code's spinner, in WordPress core">
+<meta name="twitter:description" content="A spinner verb pack for WordPress developers using Claude Code. Real WP core, WP-CLI, and hooks as gerunds.">
+<meta name="twitter:image" content="https://russellenvy.github.io/wordpress-claude/assets/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1524;--panel:#101f33;--line:#1e3350;
+    --wp:#2271b1;--wp-bright:#54a6e6;--accent:#00a0d2;--ink:#f3f7fc;--muted:#8fa6c0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+    line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--wp-bright);text-decoration:none}a:hover{color:var(--accent)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  .grid-bg{position:fixed;inset:0;z-index:-1;opacity:.4;
+    background-image:linear-gradient(rgba(84,166,230,.05) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(84,166,230,.05) 1px,transparent 1px);
+    background-size:48px 48px}
+  .glow-bg{position:fixed;top:-12%;left:50%;transform:translateX(-50%);z-index:-1;width:120%;height:70%;
+    background:radial-gradient(45% 55% at 50% 40%,rgba(34,113,177,.18),rgba(34,113,177,0) 70%)}
+
+  nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);
+    background:rgba(11,21,36,.72);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .mark{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:20px;letter-spacing:-.02em}
+  .mark .d{color:var(--muted)}.mark .a{color:var(--accent)}.mark .c{color:var(--wp-bright)}
+  .navlinks{display:flex;gap:24px;align-items:center;font-size:14px;font-weight:600}
+  .navlinks a{color:var(--muted)}.navlinks a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:.5em;font-weight:700;border-radius:8px;
+    padding:11px 20px;font-size:15px;transition:.15s;border:1px solid transparent;cursor:pointer}
+  .btn-primary{background:var(--wp);color:#fff}.btn-primary:hover{background:var(--wp-bright)}
+  .btn-ghost{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.02)}
+  .btn-ghost:hover{border-color:var(--wp-bright)}
+
+  header.hero{padding:70px 0 36px;text-align:center}
+  .kicker{font-weight:700;letter-spacing:.32em;text-transform:uppercase;font-size:13px;
+    color:var(--wp-bright);display:inline-flex;gap:1em;align-items:center}
+  .kicker::before,.kicker::after{content:"▪";color:var(--accent)}
+  h1.title{font-family:'JetBrains Mono',monospace;font-weight:800;letter-spacing:-.03em;
+    font-size:clamp(26px,7vw,82px);margin:16px 0 8px;line-height:1;white-space:nowrap;
+    filter:drop-shadow(0 0 26px rgba(34,113,177,.35))}
+  h1 .d{color:var(--muted)}h1 .a{color:var(--accent)}h1 .c{color:var(--wp-bright)}
+  .rule{width:min(340px,64%);height:4px;border-radius:2px;margin:12px auto 20px;
+    background:linear-gradient(90deg,rgba(34,113,177,0),var(--wp) 22%,var(--accent) 50%,var(--wp) 78%,rgba(34,113,177,0))}
+  .lead{font-size:clamp(18px,2.3vw,22px);color:#dbe7f4;font-weight:600;max-width:660px;margin:0 auto}
+  .lead b{color:var(--wp-bright)}
+  .cta{display:flex;gap:14px;justify-content:center;margin-top:28px;flex-wrap:wrap}
+
+  .term{max-width:600px;margin:38px auto 0;background:#080f18;border:1px solid var(--line);
+    border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 40px rgba(34,113,177,.06)}
+  .term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;border-bottom:1px solid var(--line);background:#0c1728}
+  .term-bar i{width:11px;height:11px;border-radius:50%}
+  .term-bar .r{background:#ff5f57}.term-bar .y{background:#febc2e}.term-bar .g{background:#28c840}
+  .term-bar span{margin-left:8px;color:var(--muted);font:500 12px 'JetBrains Mono',monospace}
+  .term-body{padding:22px 20px;font:500 16px/1.8 'JetBrains Mono',monospace;text-align:left;min-height:92px}
+  .term-body .prompt{color:var(--muted)}.term-body .spin{color:var(--accent)}#verb{color:#fff;transition:opacity .18s}
+  .cursor{display:inline-block;width:9px;height:18px;background:var(--wp-bright);vertical-align:-3px;margin-left:4px;animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+
+  section{padding:60px 0;border-top:1px solid var(--line)}
+  h2{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:clamp(28px,4vw,42px);
+    letter-spacing:-.02em;text-align:center;margin-bottom:8px}
+  h2 .a{color:var(--accent)}
+  .sub{text-align:center;color:var(--muted);max-width:640px;margin:0 auto 36px}
+  .mascot{display:block;max-width:560px;width:92%;margin:0 auto;border-radius:14px;border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.5)}
+  .caption{text-align:center;color:var(--muted);font-style:italic;margin-top:14px;font-size:15px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px}
+  .card h3{font-size:17px;margin-bottom:8px;display:flex;align-items:center;gap:.5em}
+  .card p{color:var(--muted);font-size:14.5px}.card .ic{color:var(--accent)}
+  .card code{color:var(--wp-bright);font-family:'JetBrains Mono',monospace;font-size:.9em}
+
+  pre{background:#080f18;border:1px solid var(--line);border-radius:12px;padding:18px 20px;overflow-x:auto;
+    font:500 14px/1.7 'JetBrains Mono',monospace;color:#e7eef7;margin:14px 0}
+  pre .c{color:var(--muted)}pre .k{color:var(--wp-bright)}
+
+  .setlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+  .verb{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 16px;
+    font:500 15px 'JetBrains Mono',monospace;display:flex;align-items:center;gap:.7em}
+  .verb .d{color:var(--accent)}.verb small{color:var(--muted);font-family:'Inter';margin-left:auto;font-size:12px}
+
+  .note{background:rgba(34,113,177,.08);border:1px solid rgba(84,166,230,.28);border-radius:12px;
+    padding:16px 20px;color:#d7e6f5;font-size:14.5px;margin-top:20px}.note b{color:var(--wp-bright)}
+  .shot{width:100%;border-radius:12px;border:1px solid var(--line);margin-top:8px;box-shadow:0 20px 50px rgba(0,0,0,.4)}
+
+  footer{padding:52px 0 66px;text-align:center;border-top:1px solid var(--line)}
+  footer .byline{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:22px;margin-top:12px}
+  footer .muted{color:var(--muted);font-size:14px}
+  footer .scrawl{color:var(--accent);font-size:14px;margin-top:16px}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="glow-bg"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="mark"><span class="d">$</span>wordpress<span class="a">-&gt;</span><span class="c">claude</span></div>
+    <div class="navlinks">
+      <a href="#how">How it works</a>
+      <a href="#install">Install</a>
+      <a href="#setlist">Setlist</a>
+      <a href="#tips">WP + Claude</a>
+      <a class="btn btn-ghost" href="https://github.com/russelleNVy/wordpress-claude">GitHub ↗</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Spinner Verb Pack · For WordPress Developers</div>
+    <h1 class="title"><span class="d">$</span>wordpress<span class="a">-&gt;</span><span class="c">claude</span></h1>
+    <div class="rule"></div>
+    <p class="lead">Claude Code's "thinking" spinner, rewritten in <b>WordPress core</b>. Real WP functions, WP-CLI commands, and hooks, bent into gerunds.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#install">🔵 Install it</a>
+      <a class="btn btn-ghost" href="https://github.com/russelleNVy/wordpress-claude">View on GitHub</a>
+    </div>
+    <div class="term" aria-hidden="true">
+      <div class="term-bar"><i class="r"></i><i class="y"></i><i class="g"></i><span>claude · ~/wp-content/plugins</span></div>
+      <div class="term-body">
+        <div class="prompt">$ claude</div>
+        <div><span class="spin">◍</span> <span id="verb">Enqueuing the Scripts</span>…<span class="cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="mascot" style="border-top:none">
+  <div class="wrap">
+    <img class="mascot" src="assets/wordpress-claude-face.png" alt="Cyborg Wapuu, the WordPress-Claude mascot">
+    <p class="caption">meet Cyborg Wapuu: your spinner, running on WordPress core.</p>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <h2>How it <span class="a">works</span></h2>
+    <p class="sub">No binary patching, no wrappers. Just a supported key in your Claude Code settings.</p>
+    <div class="cards">
+      <div class="card"><h3><span class="ic">▪</span> One config key</h3><p>It is just <code>spinnerVerbs</code> in <code>~/.claude/settings.json</code>. Append to the defaults, or replace them.</p></div>
+      <div class="card"><h3><span class="ic">▪</span> Survives updates</h3><p>It lives in your home-directory config, not the app, so a Claude Code update will not wipe it.</p></div>
+      <div class="card"><h3><span class="ic">▪</span> Terminal spinner</h3><p>The WordPress gerunds are Claude Code's terminal "thinking" spinner. Run <code>claude</code> in a real terminal to see them.</p></div>
+    </div>
+    <pre><span class="c">// ~/.claude/settings.json</span>
+{
+  <span class="k">"spinnerVerbs"</span>: {
+    <span class="k">"mode"</span>: <span class="k">"append"</span>,
+    <span class="k">"verbs"</span>: [<span class="k">"Enqueuing the Scripts"</span>, <span class="k">"Running Search-Replace"</span>, ...]
+  }
+}</pre>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2>Install</h2>
+    <p class="sub">macOS &amp; Linux get a one-liner. Windows and everyone else can edit the file directly.</p>
+    <div class="cards" style="grid-template-columns:1fr">
+      <div class="card">
+        <h3>Option A: one command <small style="color:var(--muted);font-weight:400">(macOS / Linux)</small></h3>
+<pre>git clone https://github.com/russelleNVy/wordpress-claude.git
+cd wordpress-claude
+./install.sh              <span class="c"># append to the defaults</span>
+./install.sh --replace    <span class="c"># WordPress verbs only</span></pre>
+      </div>
+      <div class="card"><h3>Option B: let Claude do it</h3><p>Paste into Claude Code: <em>"Add the verbs from <code>verbs.json</code> to my <code>~/.claude/settings.json</code> under <code>spinnerVerbs</code> with <code>mode: append</code>."</em></p></div>
+      <div class="card"><h3>Option C: by hand <small style="color:var(--muted);font-weight:400">(any OS, incl. Windows)</small></h3><p>Copy the array from <a href="https://github.com/russelleNVy/wordpress-claude/blob/main/verbs.json">verbs.json</a> into <code>~/.claude/settings.json</code> (macOS/Linux) or <code>%USERPROFILE%\.claude\settings.json</code> (Windows).</p></div>
+    </div>
+    <div class="note"><b>Where it works:</b> the Claude Code <b>terminal CLI</b> (macOS / Linux / Windows). It does <b>not</b> change the standalone Claude desktop app, which draws its own status UI and does not read <code>spinnerVerbs</code>.</div>
+    <img class="shot" src="assets/screenshot-1.png" alt="WordPress-Claude spinner in a Claude Code terminal session, registering a custom post type">
+  </div>
+</section>
+
+<section id="setlist">
+  <div class="wrap">
+    <h2>The <span class="a">setlist</span></h2>
+    <p class="sub">Pulled from WordPress core, WP-CLI, and the ecosystem. A growing list. <a href="https://github.com/russelleNVy/wordpress-claude/blob/main/verbs.json">See the full verbs.json →</a></p>
+    <div class="setlist" id="setlist"></div>
+  </div>
+</section>
+
+<section id="tips">
+  <div class="wrap">
+    <h2>Claude Code <span class="a">for WordPress</span></h2>
+    <p class="sub">New to running Claude Code / AI on WordPress projects? A few things that pair well with this pack.</p>
+    <div class="cards">
+      <div class="card"><h3><span class="ic">▪</span> Run WP-CLI through Claude</h3><p>Claude Code can execute <code>wp</code> commands directly, so it can scaffold plugins, run <code>search-replace</code>, export the DB, and flush caches for you, then read the output and keep going.</p></div>
+      <div class="card"><h3><span class="ic">▪</span> Enforce coding standards</h3><p>Set up PHPCS with <code>WordPress-Coding-Standards</code> and ask Claude to run it and fix violations. It knows the sniffs.</p></div>
+      <div class="card"><h3><span class="ic">▪</span> Ask for a security pass</h3><p>Nonces, capability checks, <code>sanitize_*</code>, <code>esc_*</code>, and <code>$wpdb-&gt;prepare</code> are exactly the review an AI is good at. Ask before you ship.</p></div>
+      <div class="card"><h3><span class="ic">▪</span> Add a CLAUDE.md</h3><p>Drop a <code>CLAUDE.md</code> in your plugin or theme with your conventions (hooks, folder layout, standards) so every session starts aligned.</p></div>
+      <div class="card"><h3><span class="ic">▪</span> Scaffold, then flesh out</h3><p>Run <code>wp scaffold plugin</code> for the boilerplate, then let Claude build the features on top of a standards-compliant base.</p></div>
+      <div class="card"><h3><span class="ic">▪</span> Let it write the tests</h3><p>Pair with <code>wp-env</code> or a local stack and have Claude write PHPUnit / integration tests against your hooks and REST routes.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="mark" style="font-size:26px"><span class="d">$</span>wordpress<span class="a">-&gt;</span><span class="c">claude</span></div>
+    <p class="muted" style="margin-top:10px"><a href="https://github.com/russelleNVy/wordpress-claude">github.com/russelleNVy/wordpress-claude</a> · MIT</p>
+    <div class="byline">By <a href="https://russellenvy.com">RUSSΞLL AARØN</a></div>
+    <div class="scrawl">stay caffeinated · ship plugins 🔵</div>
+  </div>
+</footer>
+
+<script>
+  const demo = ["Enqueuing the Scripts","Running Search-Replace","Registering the Post Type",
+    "Sanitizing the Input","Capital-P-Dangiting","Flushing the Permalinks","Preparing the wpdb Query",
+    "Exporting the Database","Summoning Wapuu","Singing Hello Dolly","Escaping the Output",
+    "Regenerating the Thumbnails","Deactivating All the Plugins","Rotating the Salt Keys",
+    "Installing Just One More Plugin","Registering the REST Route","Wooing the Commerce","Bumping the Version"];
+  const vEl = document.getElementById('verb'); let vi = 0;
+  setInterval(() => { vi = (vi+1)%demo.length; vEl.style.opacity = 0;
+    setTimeout(() => { vEl.textContent = demo[vi]; vEl.style.opacity = 1; }, 180); }, 1700);
+
+  const setlist = [
+    ["Enqueuing the Scripts","wp_enqueue_scripts"],
+    ["Registering the Post Type","register_post_type"],
+    ["Preparing the wpdb Query","$wpdb->prepare"],
+    ["Sanitizing the Input","sanitize_text_field"],
+    ["Running Search-Replace","wp search-replace"],
+    ["Exporting the Database","wp db export"],
+    ["Flushing the Object Cache","wp cache flush"],
+    ["Capital-P-Dangiting","capital_P_dangit()"],
+    ["Singing Hello Dolly","the default plugin"],
+    ["Summoning Wapuu","the mascot"],
+    ["Installing Just One More Plugin","too many plugins"],
+    ["Rotating the Salt Keys","wp-config secret keys"]
+  ];
+  document.getElementById('setlist').innerHTML = setlist.map(
+    ([v,s]) => `<div class="verb"><span class="d">◍</span> ${v}…<small>${s}</small></div>`
+  ).join('');
+</script>
+</body>
+</html>

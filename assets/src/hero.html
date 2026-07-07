@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b1524;--wp:#2271b1;--wp-bright:#54a6e6;--accent:#00a0d2;--ink:#f3f7fc;--muted:#8fa6c0}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%}
+  body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;
+    overflow:hidden;-webkit-font-smoothing:antialiased}
+  .hero{position:relative;width:100%;height:100%}
+
+  /* Cyborg Wapuu bleeds in from the right, dimmed so the words win */
+  .robot{position:absolute;right:0;top:0;height:100%;width:60%;
+    object-fit:cover;object-position:46% 32%;opacity:.9;z-index:0}
+
+  /* feather the left edge into deep navy (no seam) */
+  .feather{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(90deg,
+      #0b1524 0%, #0b1524 33%, rgba(11,21,36,.86) 45%,
+      rgba(11,21,36,.5) 60%, rgba(11,21,36,.42) 100%);}
+  .darken{position:absolute;inset:0;z-index:1;background:rgba(9,17,30,.28)}
+  .vignette{position:absolute;inset:0;z-index:1;
+    background:radial-gradient(95% 100% at 50% 50%, rgba(0,0,0,0) 55%, rgba(4,9,17,.82) 100%);}
+  .scrim-b{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(0deg, rgba(6,12,22,.5) 0%, rgba(6,12,22,0) 24%);}
+  .glow{position:absolute;inset:0;z-index:1;
+    background:radial-gradient(40% 55% at 48% 47%, rgba(34,113,177,.3), rgba(34,113,177,0) 70%);}
+  .halo{position:absolute;left:48%;top:50%;transform:translate(-50%,-50%);z-index:1;width:74%;height:76%;
+    background:radial-gradient(50% 50% at 50% 50%, rgba(7,14,26,.6), rgba(7,14,26,0) 72%);}
+  .grid{position:absolute;inset:0;z-index:1;opacity:.4;
+    background-image:linear-gradient(rgba(84,166,230,.06) 1px, transparent 1px),
+                     linear-gradient(90deg, rgba(84,166,230,.06) 1px, transparent 1px);
+    background-size:48px 48px;}
+
+  .frame{position:absolute;inset:3vmin;z-index:3;border:1px solid rgba(84,166,230,.26)}
+  .corner{position:absolute;width:2.4vmin;height:2.4vmin;border:0 solid var(--wp-bright);opacity:.8}
+  .corner.tl{top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
+  .corner.tr{top:-1px;right:-1px;border-top-width:2px;border-right-width:2px}
+  .corner.bl{bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px}
+  .corner.br{bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+
+  .copy{position:absolute;inset:0;z-index:2;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;gap:2.4vmin;padding:5vmin}
+  .kicker{font-weight:700;letter-spacing:.34em;text-transform:uppercase;font-size:1.9vmin;
+    color:var(--wp-bright);display:flex;align-items:center;gap:1em;text-shadow:0 2px 14px rgba(0,0,0,.7)}
+  .kicker::before,.kicker::after{content:"▪";color:var(--accent);letter-spacing:0}
+
+  .title{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:11vmin;line-height:1;
+    letter-spacing:-.02em;display:flex;align-items:center;
+    filter:drop-shadow(0 4px 26px rgba(0,0,0,.6)) drop-shadow(0 0 24px rgba(34,113,177,.4))}
+  .title .dollar{color:var(--muted)}
+  .title .wp{color:var(--ink)}
+  .title .arrow{color:var(--accent);margin:0 .04em}
+  .title .claude{color:var(--wp-bright)}
+
+  .rule{width:54vmin;height:.7vmin;border-radius:2px;margin-top:-.2vmin;
+    background:linear-gradient(90deg, rgba(34,113,177,0), var(--wp) 20%, var(--accent) 50%, var(--wp) 80%, rgba(34,113,177,0));}
+  .tag{font-size:2.4vmin;color:#e6eef8;font-weight:600;max-width:66vmin;text-shadow:0 2px 16px rgba(0,0,0,.8)}
+  .tag b{color:var(--wp-bright)}
+  .chip{font-family:'JetBrains Mono',monospace;font-size:2vmin;font-weight:500;color:#eaf2fb;
+    background:rgba(6,12,24,.55);border:1px solid rgba(84,166,230,.5);border-radius:8px;
+    padding:1.1vmin 2.4vmin;display:inline-flex;align-items:center;gap:1em;
+    box-shadow:0 0 26px rgba(34,113,177,.14) inset, 0 4px 20px rgba(0,0,0,.5)}
+  .chip .spin{color:var(--accent)}
+  .chip .cur{width:.9vmin;height:2vmin;background:var(--wp-bright);display:inline-block;margin-left:.2em}
+</style>
+</head>
+<body>
+  <div class="hero">
+    <img class="robot" src="../wordpress-claude-face.png" alt="">
+    <div class="feather"></div>
+    <div class="darken"></div>
+    <div class="scrim-b"></div>
+    <div class="vignette"></div>
+    <div class="glow"></div>
+    <div class="halo"></div>
+    <div class="grid"></div>
+
+    <div class="frame">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+    </div>
+
+    <div class="copy">
+      <div class="kicker">Spinner Verb Pack · For WordPress Developers</div>
+      <div class="title"><span class="dollar">$</span><span class="wp">wordpress</span><span class="arrow">-&gt;</span><span class="claude">claude</span></div>
+      <div class="rule"></div>
+      <div class="tag">Claude Code's spinner, rewritten in <b>WordPress core</b>.</div>
+      <div class="chip"><span class="spin">◍</span> Registering&nbsp;the&nbsp;Post&nbsp;Type…<span class="cur"></span></div>
+    </div>
+  </div>
+</body>
+</html>

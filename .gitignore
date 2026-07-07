@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Local settings backups (in case anyone runs install.sh from here)
+settings.json.bak.*
+
+# verbs.json is the whole point of this repo — force-track it even if a
+# global gitignore excludes *.json
+!verbs.json
+
+# temp headless-Chrome render screenshots (keep the .html sources in assets/src)
+assets/src/_*.png
+
+# the global gitignore excludes any dir named "docs"; this repo's GitHub Pages
+# site lives there, so force it back in
+!docs/
+!docs/**
